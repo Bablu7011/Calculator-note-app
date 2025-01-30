@@ -88,7 +88,7 @@ app.use((req, res, next) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Todolist running on http://localhost:${port}`);
+    console.log(`Todolist running on http://0.0.0.0:${port}`);
 });
 
 module.exports = app;
