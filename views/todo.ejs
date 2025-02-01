@@ -3,41 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator And Notes</title>
+    <title>Calculator and Notes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #c9f1e8;
             color: #333;
             margin: 0;
             padding: 0;
         }
 
         h1 {
-            background-color: #4CAF50;
+            background-color: #1392cd;
             color: white;
             margin: 0;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
 
         .container {
             display: flex;
             justify-content: space-between;
-            margin: 20px;
+            margin: 30px;
         }
 
-        /* Calculator and Notes Styles */
         .calculator, .notes {
-            background: #fff;
+            background: #fbf9fb;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 30px;
             width: 45%;
         }
 
         .calculator {
-            max-width: 400px;
+            max-width: 500px;
+        }
+
+        /* Larger Display */
+        #display {
+            width: 80%;
+            height: 60px;
+            font-size: 1.8rem;
+            text-align: right;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
         .buttons {
@@ -77,6 +88,14 @@
             background: #ff2d3a;
         }
 
+        .btn.function {
+            background: #6c5ce7;
+        }
+
+        .btn.function:hover {
+            background: #4a3bc4;
+        }
+
         .note textarea {
             width: 100%;
             padding: 8px;
@@ -103,7 +122,7 @@
     </style>
 </head>
 <body>
-    <h1>Calculator Note-app</h1>
+    <h1>Calculator and Notes</h1>
 
     <div class="container">
         <!-- Calculator Section -->
@@ -112,22 +131,25 @@
             <input type="text" id="display" disabled>
             <div class="buttons">
                 <button class="btn clear" onclick="clearDisplay()">C</button>
+                <button class="btn function" onclick="backspace()">⌫</button>
+                <button class="btn function" onclick="squareRoot()">√</button>
                 <button class="btn operator" onclick="appendOperator('/')">/</button>
-                <button class="btn operator" onclick="appendOperator('*')">*</button>
-                <button class="btn operator" onclick="appendOperator('-')">-</button>
                 <button class="btn" onclick="appendNumber('7')">7</button>
                 <button class="btn" onclick="appendNumber('8')">8</button>
                 <button class="btn" onclick="appendNumber('9')">9</button>
-                <button class="btn operator" onclick="appendOperator('+')">+</button>
+                <button class="btn operator" onclick="appendOperator('*')">*</button>
                 <button class="btn" onclick="appendNumber('4')">4</button>
                 <button class="btn" onclick="appendNumber('5')">5</button>
                 <button class="btn" onclick="appendNumber('6')">6</button>
-                <button class="btn" onclick="calculate()" style="grid-row: span 2;">=</button>
+                <button class="btn operator" onclick="appendOperator('-')">-</button>
                 <button class="btn" onclick="appendNumber('1')">1</button>
                 <button class="btn" onclick="appendNumber('2')">2</button>
                 <button class="btn" onclick="appendNumber('3')">3</button>
+                <button class="btn operator" onclick="appendOperator('+')">+</button>
                 <button class="btn" onclick="appendNumber('0')">0</button>
                 <button class="btn" onclick="appendNumber('.')">.</button>
+                <button class="btn operator" onclick="appendOperator('%')">%</button>
+                <button class="btn" onclick="calculate()" style="grid-row: span 1;">=</button>
             </div>
         </div>
 
@@ -164,6 +186,21 @@
         function calculate() {
             try {
                 display.value = eval(currentInput);
+                currentInput = display.value;
+            } catch (e) {
+                display.value = 'Error';
+                currentInput = '';
+            }
+        }
+
+        function backspace() {
+            currentInput = currentInput.slice(0, -1);
+            display.value = currentInput;
+        }
+
+        function squareRoot() {
+            try {
+                display.value = Math.sqrt(eval(currentInput));
                 currentInput = display.value;
             } catch (e) {
                 display.value = 'Error';
